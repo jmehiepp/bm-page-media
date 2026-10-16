@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đang chuyển tới trang sản phẩm…</title>
+<meta property="og:title" content="Săn sale giá tốt">
+<meta property="og:description" content="Bấm để xem sản phẩm và giá mới nhất.">
+<meta property="og:type" content="website">
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-align: center; padding: 60px 20px; color: #1c1e21; }
+  a { color: #2d88ff; }
+</style>
+</head>
+<body>
+  <p>Đang chuyển tới trang sản phẩm…</p>
+  <p><a id="target" href="https://shopee.vn">Bấm vào đây nếu trình duyệt không tự chuyển</a></p>
+<script>
+  (function () {
+    var target = new URLSearchParams(location.search).get('u');
+    if (!target) return;
+    var url;
+    try {
+      url = new URL(target);
+    } catch (e) {
+      return;
+    }
+    if (url.protocol !== 'https:') return;
+    document.getElementById('target').href = url.href;
+    location.replace(url.href);
+  })();
+</script>
+</body>
+</html>
