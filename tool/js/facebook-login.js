@@ -82,12 +82,18 @@ window.FbTool = window.FbTool || {};
         ? { config_id: config.configurationId, response_type: 'token', override_default_response_type: true }
         : { scope: SCOPES.join(','), return_scopes: true, auth_type: 'rerequest' };
       try {
-        window.FB.login(response => {
+        window.FB.login(async response => {
           const auth = response && response.authResponse;
-          if (response?.status !== 'connected' || !auth?.accessToken || !auth?.userID) {
+          if (response?.status !== 'connected' || !auth?.accessToken) {
             return finish(new Error('Facebook chưa cấp quyền đăng nhập hoặc cửa sổ đã đóng. Bạn có thể thử lại.'));
           }
-          finish(null, auth);
+          try {
+            // Login for Business can return a token without userID. Resolve it
+            // through Meta rather than treating a successful grant as denial.
+            const userID = auth.userID || (await ns.graph.request('/me', { params: { fields: 'id' }, token: auth.accessToken })).id;
+            if (!userID) throw new Error('Facebook đã trả token nhưng chưa xác minh được danh tính tài khoản.');
+            finish(null, { accessToken: auth.accessToken, userID });
+          } catch (error) { finish(error); }
         }, options);
       } catch (error) { finish(error); }
     });
