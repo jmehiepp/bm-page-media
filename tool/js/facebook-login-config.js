@@ -5,5 +5,5 @@ window.FbTool.facebookLoginConfig = {
   appId: '1487914529823169',
   hostedUrl: 'https://jmehiepp.github.io/bm-page-media/tool/',
   // Optional Facebook Login for Business configuration issuing a User token.
-  configurationId: '',
+  configurationId: '1118101764416343',
 };
