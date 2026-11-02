@@ -23,6 +23,12 @@
     $('disconnect-facebook').disabled = publishing;
   }
 
+  function showConnectionNotice(message) {
+    $('facebook-login-status').textContent = message;
+    $('connection-notice').textContent = message;
+    $('connection-notice').hidden = !message;
+  }
+
   function disconnectFacebook() {
     loginAttempt++;
     ns.facebookLogin?.clearSession();
@@ -31,6 +37,7 @@
     applyToken();
     invalidateConnection();
     $('me').textContent = 'Đã ngắt kết nối';
+    showConnectionNotice('Đã ngắt kết nối Facebook.');
   }
 
   async function prepareFacebookLogin() {
@@ -63,15 +70,15 @@
     const attempt = ++loginAttempt;
     facebookLoginPending = true;
     updatePublishAvailability();
-    $('facebook-login-status').textContent = 'Hoàn tất đăng nhập và cấp quyền trong cửa sổ Facebook...';
+    showConnectionNotice('Hoàn tất đăng nhập và cấp quyền trong cửa sổ Facebook...');
     try {
       const token = await ns.facebookLogin.login();
       if (attempt !== loginAttempt) return;
       $('token').value = token;
-      $('facebook-login-status').textContent = 'Đã nhận phiên đăng nhập. Đang kiểm tra quyền và tự tải Page, tài khoản quảng cáo...';
+      showConnectionNotice('Đã nhận phiên đăng nhập. Đang kiểm tra quyền và tự tải Page, tài khoản quảng cáo...');
       await loadAccounts();
     } catch (err) {
-      if (attempt === loginAttempt) $('facebook-login-status').textContent = err.message;
+      if (attempt === loginAttempt) showConnectionNotice(`❌ ${err.message}`);
     } finally {
       facebookLoginPending = false;
       updatePublishAvailability();
@@ -90,6 +97,7 @@
     showAdAccount([], false);
     ns.shell.setConnection(false, 'Cần kết nối lại');
     $('me').textContent = 'Token đã thay đổi — bấm Kết nối & tải Page';
+    showConnectionNotice('Cần kết nối lại Facebook.');
   }
 
   function log(message) {
@@ -188,6 +196,7 @@
     button.disabled = true;
     button.textContent = 'Đang kết nối...';
     $('me').textContent = '⏳ Đang tải Page...';
+    showConnectionNotice('⏳ Đang kiểm tra kết nối và tải Page, tài khoản quảng cáo...');
     try {
       const { me, pages, adAccounts } = await ns.accounts.loadAccountsWithDiagnostics();
       if (generation !== connectionGeneration || tokenAtStart !== $('token').value.trim()) return;
@@ -198,11 +207,14 @@
       showAdAccount(adAccounts);
       ns.shell.setConnection(true, `${me.name} · ${pages.length} Page`);
       log(`✅ Kết nối ${me.name}, tải được ${pages.length} Page`);
+      const account = discoveredAdAccounts.find(a => a.id === adAccountId());
+      showConnectionNotice(`✅ Đã kết nối Facebook: ${me.name} · ${pages.length} Page.${account ? ` Tài khoản quảng cáo: ${account.name} (${account.id}).` : ' Chưa có tài khoản quảng cáo đang hoạt động; chưa thể đăng carousel.'}${pages.length ? '' : ' Chưa có Page được cấp quyền; hãy kết nối lại và chọn Page.'}`);
       if (adAccountId()) ns.shell.closeSettings();
     } catch (err) {
       if (generation !== connectionGeneration) return;
       $('me').textContent = `❌ ${err.message}`;
       ns.shell.setConnection(false, 'Lỗi kết nối');
+      showConnectionNotice(`❌ Kết nối chưa hoàn tất: ${err.message}`);
       log(`❌ ${err.message}`);
     } finally {
       if (generation === connectionGeneration) {

@@ -230,3 +230,6 @@ button.library-tile:hover { border-color: var(--primary); }
 .quick-import { border: 1px dashed var(--border-strong); border-radius: 8px; padding: 10px; margin: 10px 0; display: grid; gap: 8px; }
 .quick-import textarea { width: 100%; }
 .subhead-line { font-size: 13px; color: var(--muted); }
+
+.connection-notice { margin: 12px 24px; padding: 12px 16px; border: 1px solid #758ba5; border-radius: 8px; background: #142235; color: #f0f6ff; }
+.connection-notice[hidden] { display: none; }
