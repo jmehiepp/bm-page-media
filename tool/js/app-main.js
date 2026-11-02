@@ -19,6 +19,18 @@
     $('publish-now').disabled = $('schedule').disabled = Boolean(disabled);
     $('ad-account-id').disabled = publishing || connecting || !discoveredAdAccounts.some(a => a.account_status === 1);
     if (ns.facebookLogin?.canLogin()) $('facebook-login-btn').disabled = publishing || connecting || facebookLoginPending || !ns.facebookLogin.isReady();
+    $('disconnect-facebook').hidden = !connectionMatches();
+    $('disconnect-facebook').disabled = publishing;
+  }
+
+  function disconnectFacebook() {
+    loginAttempt++;
+    ns.facebookLogin?.clearSession();
+    $('token').value = '';
+    $('remember-token').checked = false;
+    applyToken();
+    invalidateConnection();
+    $('me').textContent = 'Đã ngắt kết nối';
   }
 
   async function prepareFacebookLogin() {
@@ -375,6 +387,7 @@
     $('token').addEventListener('input', () => { loginAttempt++; invalidateConnection(); applyToken(); });
     $('remember-token').addEventListener('change', applyToken);
     $('load-accounts').onclick = loadAccounts;
+    $('disconnect-facebook').onclick = disconnectFacebook;
     $('publish-now').onclick = () => submit(false);
     $('schedule').onclick = () => submit(true);
     ns.queue.subscribe(renderJobs);

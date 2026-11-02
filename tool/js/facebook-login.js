@@ -98,5 +98,6 @@ window.FbTool = window.FbTool || {};
     isReady: () => ready,
     hostedUrl: config.hostedUrl,
     userIdForToken: token => session?.accessToken === token ? session.userID : null,
+    clearSession: () => { session = null; },
   };
 })(window.FbTool);

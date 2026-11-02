@@ -15,7 +15,7 @@
 </head>
 <body>
   <h1>Chính sách quyền riêng tư</h1>
-  <p class="updated">Áp dụng cho ứng dụng <strong>BM Page Media</strong> và công cụ Carousel Post Tool. Cập nhật: 16/10/2026.</p>
+  <p class="updated">Áp dụng cho ứng dụng <strong>BM Page Media</strong> và công cụ Carousel Post Tool. Cập nhật: 02/11/2026.</p>
 
   <h2>1. Chúng tôi là ai</h2>
   <p>BM Page Media là công cụ nội bộ dùng để tạo và đăng bài carousel lên các Trang Facebook do chính người dùng sở hữu hoặc được ủy quyền quản lý. Công cụ do cá nhân vận hành, liên hệ qua email ở cuối trang.</p>
@@ -25,9 +25,9 @@
 
   <h2>3. Dữ liệu được sử dụng</h2>
   <ul>
-    <li><strong>Mã truy cập (access token)</strong> của Người dùng hệ thống do chính người dùng dán vào công cụ.</li>
+    <li><strong>Mã truy cập (access token)</strong> của tài khoản Facebook cá nhân, nhận qua Facebook Login sau khi bạn cấp quyền hoặc do bạn dán vào công cụ.</li>
     <li><strong>Danh sách Trang</strong> mà mã truy cập đó quản lý: tên Trang, mã Trang, mã truy cập Trang.</li>
-    <li><strong>Mã tài khoản quảng cáo</strong> do người dùng nhập, dùng để tạo bài viết chưa đăng.</li>
+    <li><strong>Danh sách tài khoản quảng cáo</strong> mà tài khoản Facebook được quyền truy cập: tên, mã và trạng thái, dùng để chọn tài khoản đang hoạt động và tạo bài viết chưa đăng.</li>
     <li><strong>Nội dung bài đăng</strong> do người dùng soạn: chữ, video, hình ảnh, đường liên kết.</li>
   </ul>
   <p>Công cụ không thu thập dữ liệu cá nhân của người xem Trang, không đọc tin nhắn, không lấy danh sách bạn bè, không dùng dữ liệu cho quảng cáo hay phân tích.</p>
@@ -35,16 +35,18 @@
   <h2>4. Dữ liệu được lưu ở đâu</h2>
   <p>Toàn bộ dữ liệu nằm trong trình duyệt trên máy của người dùng:</p>
   <ul>
-    <li><code>localStorage</code>: mã truy cập (chỉ khi người dùng tự chọn ghi nhớ), mã tài khoản quảng cáo, lịch hẹn đăng bài.</li>
+    <li><code>localStorage</code>: mã truy cập (chỉ khi người dùng tự chọn ghi nhớ), mã tài khoản quảng cáo, lịch hẹn đăng bài và link AFF đã lưu.</li>
     <li><code>IndexedDB</code>: video và hình ảnh người dùng thêm vào thư viện, tự động xóa sau 45 ngày.</li>
   </ul>
   <p>Chúng tôi không có bản sao của bất kỳ dữ liệu nào nêu trên.</p>
 
   <h2>5. Chia sẻ dữ liệu</h2>
-  <p>Chúng tôi không bán, không cho thuê, không chuyển dữ liệu cho bên thứ ba. Bên duy nhất nhận dữ liệu là Meta Platforms, thông qua Graph API, để thực hiện đúng thao tác người dùng yêu cầu như tải video lên và đăng bài.</p>
+  <p>Chúng tôi không bán, không cho thuê, không chuyển dữ liệu cho bên thứ ba. Thông tin đăng nhập được xử lý bởi Facebook Login của Meta. Mã truy cập và nội dung được gửi tới Meta Platforms, thông qua Graph API, để thực hiện đúng thao tác người dùng yêu cầu như tải video lên và đăng bài.</p>
 
   <h2>6. Quyền của người dùng</h2>
-  <p>Người dùng có thể xóa toàn bộ dữ liệu bất cứ lúc nào, xem hướng dẫn tại trang <a href="data-deletion.html">Hướng dẫn xóa dữ liệu</a>. Người dùng cũng có thể thu hồi quyền truy cập bất cứ lúc nào trong Cài đặt doanh nghiệp của Meta.</p>
+  <p>Người dùng có thể xóa toàn bộ dữ liệu bất cứ lúc nào, xem hướng dẫn tại trang <a href="data-deletion.html">Hướng dẫn xóa dữ liệu</a>. Người dùng có thể ngắt kết nối trong công cụ và thu hồi quyền ứng dụng trong phần quản lý ứng dụng hoặc tiện ích tích hợp của Cài đặt Facebook.</p>
+
+  <p>Bản web được phục vụ qua GitHub Pages. Việc tải các tệp trang web tạo yêu cầu tới đơn vị lưu trữ; mã truy cập và nội dung thư viện không được ứng dụng gửi tới GitHub Pages. Facebook SDK có thể quản lý dữ liệu phiên riêng theo chính sách của Meta.</p>
 
   <h2>7. Bảo mật</h2>
   <p>Mã truy cập chỉ nằm trên máy người dùng và không được gửi đi đâu ngoài Meta. Người dùng chịu trách nhiệm bảo vệ máy tính của mình và không nên chọn ghi nhớ mã truy cập trên máy dùng chung.</p>
